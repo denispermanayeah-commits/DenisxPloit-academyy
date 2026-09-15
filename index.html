@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DenisX-Ploit Academy</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Roboto, Arial, sans-serif;}
+:root{--biru:#1e40af;--biru-terang:#3b82f6;--merah:#dc2626;--abu:#6b7280;--bg:#030712;--card:#0f172a;--teks:#e5e7eb;--teks-abu:#94a3b8;}
+body{background:var(--bg);color:var(--teks);min-height:100vh;padding-bottom:80px;}
+
+/* ===== NAVIGASI ===== */
+.nav-jc-2{background:#020617;border-bottom:3px solid #ef4444;padding:22px 20px;position:sticky;top:0;z-index:999;}
+.nav-jc-2-wrap{max-width:700px;margin:0 auto;}
+.nav-jc-2-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px;}
+.nav-jc-2-icon{font-size:36px;filter:drop-shadow(0 0 8px #ef4444);}
+.nav-jc-2-nama{font-size:18px;font-weight:900;color:#ffffff;margin:0;letter-spacing:2px;text-transform:uppercase;}
+.nav-jc-2-moto{font-size:10.5px;color:#fca5a5;margin-top:6px;line-height:1.9;text-transform:uppercase;}
+.nav-jc-2-sapaan{font-size:12.5px;color:#fecaca;margin-bottom:18px;line-height:1.9;background:#120606;padding:16px;border-left:3px solid #ef4444;}
+.nav-jc-2-menu{display:flex;gap:8px;flex-wrap:wrap;}
+.nav-jc-2-link{padding:12px 22px;background:#120606;color:#fca5a5;text-decoration:none;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;transition:all 0.2s;cursor:pointer;border:1px solid #b91c1c;border-radius:6px;}
+.nav-jc-2-link:hover{background:#b91c1c;color:#ffffff;transform:translateY(-2px);box-shadow:0 0 12px rgba(220,38,38,0.45);}
+.nav-jc-2-link.aktif{background:#dc2626;color:#ffffff;box-shadow:0 0 15px rgba(220,38,38,0.55);}
+.nav-jc-2-link.keluar{background:#1f2937;border-color:#374151;color:#9ca3af;}
+.nav-jc-2-link.keluar:hover{background:#374151;color:#ffffff;}
+
+/* ===== KONTEN ===== */
+.container{max-width:700px;margin:0 auto;padding:20px;}
+.cari{width:100%;padding:12px 16px;background:var(--card);border:1px solid #1e293b;border-radius:8px;color:white;font-size:15px;margin-bottom:20px;}
+.cari:focus{outline:none;border-color:var(--merah);}
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.tab{padding:8px 16px;background:var(--card);border-radius:6px;font-size:14px;cursor:pointer;border:1px solid transparent;}
+.tab.aktif{background:var(--merah);color:white;border-color:#ef4444;}
+.materi-list{display:flex;flex-direction:column;gap:10px;}
+.materi-item{background:var(--card);padding:14px;border-radius:8px;border:1px solid #1e293b;transition:all 0.2s;cursor:pointer;}
+.materi-item:hover{border-color:#ef4444;transform:translateX(4px);}
+.materi-selesai{opacity:0.7;}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:8px;}
+.badge.pemula{background:#16a34a;color:white;}
+.badge.menengah{background:#ca8a04;color:white;}
+.badge.mahir{background:#3b82f6;color:white;}
+.badge.bonus{background:#9333ea;color:white;}
+.progress-bar{height:8px;background:#1e293b;border-radius:4px;margin-top:8px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#dc2626,#ef4444);border-radius:4px;transition:width 0.3s;}
+.halaman{display:none;}
+.halaman.aktif{display:block;}
+.profil-card{background:var(--card);padding:24px;border-radius:10px;border:1px solid #1e293b;}
+.profil-card h2{margin-bottom:10px;}
+.profil-card p{color:var(--teks-abu);margin-bottom:8px;}
+
+/* ===== MODAL MATERI ===== */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal.buka{display:flex;}
+.modal-box{background:var(--card);border-radius:12px;border:1px solid #ef4444;width:100%;max-width:600px;max-height:85vh;overflow-y:auto;}
+.modal-head{padding:18px 20px;border-bottom:1px solid #1e293b;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.modal-judul{font-size:17px;font-weight:700;}
+.modal-tutup{font-size:22px;cursor:pointer;color:var(--teks-abu);line-height:1;}
+.modal-tutup:hover{color:white;}
+.modal-isi{padding:20px;line-height:1.8;}
+.modal-isi h3{margin:20px 0 10px 0;color:#fca5a5;}
+.modal-isi p{margin-bottom:12px;color:#ddd;}
+.modal-isi ul{margin:12px 0 12px 24px;}
+.modal-isi li{margin-bottom:6px;}
+.modal-footer{padding:14px 20px;border-top:1px solid #1e293b;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.btn{padding:10px 20px;border-radius:6px;border:none;cursor:pointer;font-weight:600;transition:all 0.2s;}
+.btn-selesai{background:#16a34a;color:white;}
+.btn-selesai:hover{background:#15803d;}
+.btn-tutup{background:#374151;color:white;}
+.btn-tutup:hover{background:#4b5563;}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGASI ===== -->
+<nav class="nav-jc-2">
+  <div class="nav-jc-2-wrap">
+    <div class="nav-jc-2-top">
+      <span class="nav-jc-2-icon">⚖️</span>
+      <div class="nav-jc-2-brand">
+        <h1 class="nav-jc-2-nama">DENISX-PLOIT ACADEMY</h1>
+        <p class="nav-jc-2-moto">JUSTICE CORPS — KEBENARAN TIDAK PERNAH TIDUR. KAMI TIDAK AKAN PERNAH BERHENTI MENCARI. SAMPAI SETIAP ORANG MENDAPATKAN APA YANG SEHARUSNYA MILIK MEREKA. TIDAK ADA KEKUATAN YANG BISA MENGHENTIKAN KAMI. FORTIS FORTUNA ADIUVAT — HANYA YANG BERANI MENGHADAPI KEGELAPAN YANG AKAN MEMBAWA CAHAYA.</p>
+      </div>
+    </div>
+    <div class="nav-jc-2-sapaan">
+      Ingat ini baik-baik. Kamu bukan orang biasa lagi. Setiap ilmu yang kamu pelajari adalah senjata untuk melindungi yang lemah. Jangan sia-siakan kesempatan ini. Dunia di luar sana sedang menunggu kamu — bukan untuk dilihat, tapi untuk diubah. Mulai sekarang, atau selamanya terlambat.
+    </div>
+    <div class="nav-jc-2-menu">
+      <a class="nav-jc-2-link aktif" onclick="bukaHalaman('beranda')">BERANDA</a>
+      <a class="nav-jc-2-link" onclick="bukaHalaman('materi')">MATERI</a>
+      <a class="nav-jc-2-link" onclick="bukaHalaman('profil')">PROFIL</a>
+      <a class="nav-jc-2-link keluar" onclick="keluarAkun()">KELUAR</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== BERANDA ===== -->
+<div id="beranda" class="halaman aktif">
+  <div class="container">
+    <h2 style="margin-bottom:8px">Selamat datang, Pejuang Keadilan ⚖️</h2>
+    <p style="color:var(--teks-abu);margin-bottom:24px">Klik materi untuk membacanya. Centang jika sudah selesai!</p>
+    
+    <div style="background:var(--card);padding:20px;border-radius:10px;border:1px solid #1e293b;margin-bottom:24px;">
+      <h3 style="margin-bottom:10px">📊 Progress Belajar</h3>
+      <p style="font-size:14px;color:var(--teks-abu);margin-bottom:6px"><span id="jml-selesai">0</span> / 100 Materi Selesai</p>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+      <p style="font-size:12px;color:var(--teks-abu);margin-top:8px" id="persen">0% Selesai</p>
+    </div>
+    
+    <h3 style="margin-bottom:12px">⚡ Lanjutkan Belajar</h3>
+    <p style="color:var(--teks-abu);font-size:14px">Buka halaman <strong>MATERI</strong> → klik materi untuk membaca isinya!</p>
+  </div>
+</div>
+
+<!-- ===== MATERI ===== -->
+<div id="materi" class="halaman">
+  <div class="container">
+    <input type="text" class="cari" id="cari" placeholder="🔍 Cari materi..." oninput="filterMateri()">
+    
+    <div class="tabs">
+      <span class="tab aktif" onclick="pilihKategori('semua')" id="tab-semua">Semua</span>
+      <span class="tab" onclick="pilihKategori('pemula')" id="tab-pemula">Pemula</span>
+      <span class="tab" onclick="pilihKategori('menengah')" id="tab-menengah">Menengah</span>
+      <span class="tab" onclick="pilihKategori('mahir')" id="tab-mahir">Mahir</span>
+      <span class="tab" onclick="pilihKategori('bonus')" id="tab-bonus">⭐ Bonus</span>
+    </div>
+    
+    <div class="materi-list" id="daftar-materi"></div>
+  </div>
+</div>
+
+<!-- ===== PROFIL ===== -->
+<div id="profil" class="halaman">
+  <div class="container">
+    <div class="profil-card">
+      <h2>👤 DenisX-Ploit</h2>
+      <p>Anggota Justice Corps</p>
+      <hr style="border:none;border-top:1px solid #1e293b;margin:16px 0;">
+      
+      <h3 style="margin-bottom:12px">📊 Statistik Belajar</h3>
+      <p>Total Materi: <strong>100</strong></p>
+      <p>Selesai: <strong id="profil-selesai">0</strong></p>
+      <p>Belum Selesai: <strong id="profil-belum">100</strong></p>
+      <p>Progress: <strong id="profil-persen">0%</strong></p>
+      
+      <hr style="border:none;border-top:1px solid #1e293b;margin:16px 0;">
+      
+      <h3 style="margin-bottom:8px">⚖️ Justice Corps</h3>
+      <p style="font-style:italic;color:var(--teks-abu);font-size:14px">"Kebenaran tidak pernah tidur. Kami tidak akan pernah berhenti."</p>
+      <p style="margin-top:8px;font-size:13px;color:var(--teks-abu);">Fortis Fortuna Adiuvat — Keberanian adalah kunci kesuksesan.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL BUKA MATERI ===== -->
+<div id="modal" class="modal" onclick="if(event.target===this) tutupModal()">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 class="modal-judul" id="modal-judul"></h3>
+      <span class="modal-tutup" onclick="tutupModal()">&times;</span>
+    </div>
+    <div class="modal-isi" id="modal-isi"></div>
+    <div class="modal-footer">
+      <button class="btn btn-tutup" onclick="tutupModal()">Tutup</button>
+      <button class="btn btn-selesai" id="btn-selesai" onclick="tandaiSelesai()">✓ Tandai Selesai</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== ISI MATERI =====
+const materiData = [
+  {id:1, nama:'Materi 1: Pengenalan Pemrograman', kategori:'pemula', isi:`
+    <p>Selamat datang di materi pertama! 🎉</p>
+    <h3>Apa itu Pemrograman?</h3>
+    <p>Pemrograman adalah cara kita memberi instruksi kepada komputer untuk melakukan tugas tertentu. Komputer tidak mengerti bahasa manusia, jadi kita butuh bahasa pemrograman sebagai perantara.</p>
+    <h3>Kenapa Harus Belajar Pemrograman?</h3>
+    <ul>
+      <li>✅ Kamu bisa bikin aplikasi sendiri</li>
+      <li>✅ Melatih logika berpikir</li>
+      <li>✅ Membuka banyak peluang karir</li>
+      <li>✅ Bisa bikin solusi untuk masalah sehari-hari</li>
+    </ul>
+    <p><strong>Intinya:</strong> Pemrograman adalah senjata masa depan. Mulai dari sini, jangan pernah berhenti! ⚖️🔥</p>
+  `},
+  {id:2, nama:'Materi 2: Memahami Variabel & Tipe Data', kategori:'pemula', isi:`
+    <h3>Variabel — Kotak Penyimpanan</h3>
+    <p>Bayangkan variabel itu seperti kotak. Kamu kasih nama kotaknya, lalu simpan sesuatu di dalamnya.</p>
+    <h3>Contoh Sederhana:</h3>
+    <ul>
+      <li><strong>Nama:</strong> "DenisX-Ploit"</li>
+      <li><strong>Umur:</strong> 16</li>
+      <li><strong>Apakah pejuang?:</strong> benar</li>
+    </ul>
+    <h3>3 Tipe Data Utama:</h3>
+    <ul>
+      <li>📝 <strong>Teks/String</strong> — untuk tulisan</li>
+      <li>🔢 <strong>Angka/Number</strong> — untuk bilangan</li>
+      <li>✅ <strong>Boolean</strong> — benar atau salah</li>
+    </ul>
+  `},
+  {id:3, nama:'Materi 3: Perulangan (Loop)', kategori:'pemula', isi:`
+    <h3>Apa itu Perulangan?</h3>
+    <p>Melakukan hal yang sama berulang kali sampai syarat terpenuhi. Komputer tidak pernah lelah mengulang — itu kelebihan kita!</p>
+    <h3>Contoh Penggunaan:</h3>
+    <ul>
+      <li>Menampilkan nama 100 kali</li>
+      <li>Menghitung dari 1 sampai 1000</li>
+      <li>Membaca semua data dalam daftar</li>
+    </ul>
+    <p><em>"Ulangi sampai berhasil. Menyerah bukan pilihan."</em> ⚖️</p>
+  `},
+  {id:4, nama:'Materi 4: Percabangan (If/Else)', kategori:'pemula', isi:`
+    <h3>Membuat Keputusan dengan Kode</h3>
+    <p>Kadang kita butuh memilih: JIKA ini benar → lakukan A, JIKA TIDAK → lakukan B. Itulah percabangan!</p>
+    <h3>Logika Sederhana:</h3>
+    <ul>
+      <li>JIKA nilai >= 70 → LULUS ✅</li>
+      <li>JIKA tidak → BELUM LULUS ❌</li>
+    </ul>
+    <p>Semakin banyak cabang, semakin kompleks keputusan — tapi semakin hebat programmu!</p>
+  `},
+  {id:5, nama:'Materi 5: Fungsi & Cara Memanggilnya', kategori:'pemula', isi:`
+    <h3>Apa itu Fungsi?</h3>
+    <p>Sekumpulan kode yang diberi nama, supaya bisa dipakai berulang kali tanpa menulis ulang. Praktis dan rapi!</p>
+    <h3>Manfaat Fungsi:</h3>
+    <ul>
+      <li>✅ Kode lebih pendek dan rapi</li>
+      <li>✅ Bisa dipakai berkali-kali</li>
+      <li>✅ Mudah diperbaiki jika ada salah</li>
+    </ul>
+  `},
+  {id:91, nama:'Materi 91: Cara Membangun Portofolio yang Kuat', kategori:'bonus', isi:`
+    <h3>Kenapa Portofolio Itu Penting?</h3>
+    <p>Ijazah menunjukkan kamu sekolah — portofolio menunjukkan apa yang bisa kamu buat. Dunia kerja butuh bukti, bukan janji!</p>
+    <h3>Apa Saja yang Masuk Portofolio?</h3>
+    <ul>
+      <li>✅ Proyek yang sudah kamu buat</li>
+      <li>✅ Hasil belajar & sertifikat</li>
+      <li>✅ Catatan perkembanganmu</li>
+      <li>✅ Tulisan atau catatan belajar</li>
+    </ul>
+    <p><strong>Ingat:</strong> Mulai dari sekarang. Jangan menunggu sempurna. Yang penting mulai, lalu perbaiki seiring berjalannya waktu. Fortis Fortuna Adiuvat! ⚖️🔥</p>
+  `},
+  {id:92, nama:'Materi 92: Tips Belajar Efektif & Konsisten', kategori:'bonus', isi:`
+    <h3>Belajar Bukan Lama — Tapi Teratur</h3>
+    <p>30 menit setiap hari > 5 jam sekali seminggu. Konsistensi adalah kunci utama!</p>
+    <h3>Tips Belajar:</h3>
+    <ul>
+      <li>📅 Tetapkan waktu belajar tetap</li>
+      <li>🎯 Satu hari satu materi — jangan buru-buru</li>
+      <li>✍️ Catat hal penting dengan bahasamu sendiri</li>
+      <li>😪 Istirahat itu penting — otak butuh istirahat untuk memproses</li>
+      <li>💪 Jangan malu bertanya — bertanya tanda ingin maju</li>
+    </ul>
+    <p><em>"Hari ini susah, besok lebih mudah, lusa kamu sudah jago."</em></p>
+  `},
+  {id:93, nama:'Materi 93: Langkah Menuju Karir IT', kategori:'bonus', isi:`
+    <h3>Jalan Menuju Masa Depan</h3>
+    <p>Belajar hari ini adalah investasi untuk dirimu 5 tahun ke depan. Mulai dari dasar, bangun pelan-pelan, tapi jangan pernah berhenti.</p>
+    <h3>Langkah-langkahnya:</h3>
+    <ul>
+      <li>📚 Kuasai dasar dulu — jangan lompat-lompat</li>
+      <li>🛠️ Buat proyek kecil-kecilan</li>
+      <li>🔍 Cari tahu apa yang sedang dibutuhkan</li>
+      <li>🤝 Belajar bersama komunitas</li>
+      <li>⚖️ Tetap jujur dan bermanfaat bagi orang lain</li>
+    </ul>
+    <p>Kamu bukan cuma belajar buat diri sendiri — kamu belajar supaya bisa membantu orang lain juga. Itu semangat Justice Corps! ⚖️</p>
+  `},
+  {id:94, nama:'Materi 94: Membangun Proyek Pribadi', kategori:'bonus', isi:`
+    <h3>Dari Belajar → Membuat</h3>
+    <p>Ilmu yang tidak dipakai akan hilang. Buatlah sesuatu — sekecil apa pun itu. Proyek adalah bukti kemampuanmu.</p>
+    <h3>Ide Proyek Sederhana:</h3>
+    <ul>
+      <li>📋 Daftar tugas harian</li>
+      <li>🧮 Kalkulator sederhana</li>
+      <li>📖 Catatan belajar pribadi</li>
+      <li>🌐 Website sederhana</li>
+    </ul>
+    <p>Mulailah hari ini. Proyek pertamamu tidak harus sempurna — harus ada dulu, lalu diperbaiki. Maju satu langkah lebih baik daripada diam di tempat!</p>
+  `},
+  {id:95, nama:'Materi 95: Cara Belajar Mandiri Tanpa Batas', kategori:'bonus', isi:`
+    <h3>Kamu Bisa Belajar Sendiri</h3>
+    <p>Di zaman sekarang, semua ilmu ada di depan matamu. Yang membedakan orang sukses dan tidak adalah kemauan untuk terus belajar.</p>
+    <h3>Cara Belajar Mandiri:</h3>
+    <ul>
+      <li>🔍 Cari tahu sendiri sebelum bertanya</li>
+      <li>📖 Baca dokumentasi & artikel</li>
+      <li>🎤 Jelaskan ke orang lain — jika bisa menjelaskan, berarti kamu paham</li>
+      <li>❌ Jangan takut salah — salah adalah cara belajar terbaik</li>
+    </ul>
+    <p><em>"Batas hanya ada di pikiran. Hapus batas itu, dan kamu akan melihat seberapa jauh kamu bisa melangkah."</em> — Justice Corps ⚖️</p>
+  `}
+];
+
+// Tambah materi 6-30, 31-60, 61-90 dengan isi standar
+for(let i=6;i<=30;i++){
+  materiData.push({id:i, nama:`Materi ${i}: Dasar Pemrograman Bagian ${i}`, kategori:'pemula', isi:`
+    <h3>Materi ${i}</h3>
+    <p>Ini materi dasar ke-${i}. Pelajari dengan teliti. Jangan terburu-buru — pahami dulu sebelum lanjut ke berikutnya.</p>
+    <p>Setiap langkah kecil adalah kemajuan. Tetap konsisten, jangan menyerah! 💪</p>
+    <p><em>"Fortis Fortuna Adiuvat" — Keberanian menentukan nasibmu.</em> ⚖️🔥</p>
+  `});
+}
+for(let i=31;i<=60;i++){
+  materiData.push({id:i, nama:`Materi ${i}: Konsep & Logika Pemrograman ${i-30}`, kategori:'menengah', isi:`
+    <h3>Materi ${i} — Tingkat Menengah</h3>
+    <p>Bagus, kamu sudah sampai di tingkat menengah! 🎉</p>
+    <p>Di sini tantangannya lebih besar. Logika kamu akan diuji lebih dalam. Tapi ingat — kamu tidak sendirian. Teruslah berusaha, jangan pernah mundur.</p>
+    <p>Semakin sulit jalannya, semakin bangga kamu saat sampai di garis akhir. Semangat, Pejuang Keadilan! ⚖️🔥</p>
+  `});
+}
+for(let i=61;i<=90;i++){
+  materiData.push({id:i, nama:`Materi ${i}: Pengembangan Proyek Tingkat Lanjut ${i-60}`, kategori:'mahir', isi:`
+    <h3>Materi ${i} — Tingkat Mahir</h3>
+    <p>Kamu sudah sampai di tingkat mahir! Luar biasa! 🔥⚖️</p>
+    <p>Ini bukan akhir — ini baru permulaan. Sekarang kamu sudah siap membuat proyek yang lebih besar dan bermanfaat bagi banyak orang.</p>
+    <p>Ilmu adalah tanggung jawab. Gunakan untuk kebaikan. Selamat melangkah ke masa depan yang cerah!</p>
+    <p><em>"Kebenaran tidak pernah tidur. Teruslah belajar, teruslah berkarya."</em> — Justice Corps ⚖️</p>
+  `});
+}
+
+let kategoriAktif = 'semua';
+let idTerbuka = null;
+
+// ===== RENDER DAFTAR MATERI =====
+function renderMateri(){
+  const daftar = document.getElementById('daftar-materi');
+  const cari = document.getElementById('cari').value.toLowerCase();
+  let hasil = materiData;
+  
+  if(kategoriAktif !== 'semua'){
+    hasil = hasil.filter(m=>m.kategori === kategoriAktif);
+  }
+  if(cari){
+    hasil = hasil.filter(m=>m.nama.toLowerCase().includes(cari));
+  }
+  
+  daftar.innerHTML = hasil.map(m=>{
+    const selesai = localStorage.getItem(`materi_${m.id}`) === 'true';
+    const label = {pemula:'PEMULA', menengah:'MENENGAH', mahir:'MAHIR', bonus:'⭐ BONUS'}[m.kategori];
+    const kelasBadge = {pemula:'pemula', menengah:'menengah', mahir:'mahir', bonus:'bonus'}[m.kategori];
+    return `
+      <div class="materi-item" onclick="bukaMateri(${m.id})">
+        <span>${selesai?'✅ ':'📖 '}${m.nama}</span>
+        <span class="badge ${kelasBadge}">${label}</span>
+      </div>
+    `;
+  }).join('');
+  updateProgress();
+}
+
+// ===== BUKA MATERI =====
+function bukaMateri(id){
+  const m = materiData.find(x=>x.id === id);
+  if(!m) return;
+  idTerbuka = id;
+  document.getElementById('modal-judul').textContent = m.nama;
+  document.getElementById('modal-isi').innerHTML = m.isi;
+  const selesai = localStorage.getItem(`materi_${id}`) === 'true';
+  document.getElementById('btn-selesai').innerHTML = selesai ? '✓ Sudah Selesai' : '✓ Tandai Selesai';
+  document.getElementById('modal').classList.add('buka');
+}
+
+// ===== TUTUP MODAL =====
+function tutupModal(){
+  document.getElementById('modal').classList.remove('buka');
+  idTerbuka = null;
+}
+
+// ===== TANDAI SELESAI DARI MODAL =====
+function tandaiSelesai(){
+  if(!idTerbuka) return;
+  const selesai = localStorage.getItem(`materi_${idTerbuka}`) === 'true';
+  localStorage.setItem(`materi_${idTerbuka}`, String(!selesai));
+  document.getElementById('btn-selesai').innerHTML = !selesai ? '✓ Sudah Selesai' : '✓ Tandai Selesai';
+  renderMateri();
+}
+
+// ===== UPDATE PROGRESS =====
+function updateProgress(){
+  const total = 100;
+  let selesai = 0;
+  for(let i=1;i<=100;i++){
+    if(localStorage.getItem(`materi_${i}`) === 'true') selesai++;
+  }
+  const persen = Math.round((selesai/total)*100);
+  document.getElementById('jml-selesai').textContent = selesai;
+  document.getElementById('progress-fill').style.width = persen+'%';
+  document.getElementById('persen').textContent = persen+'% Selesai';
+  
+  document.getElementById('profil-selesai').textContent = selesai;
+  document.getElementById('profil-belum').textContent = total - selesai;
+  document.getElementById('profil-persen').textContent = persen+'%';
+}
+
+// ===== PILIH KATEGORI =====
+function pilihKategori(k){
+  
